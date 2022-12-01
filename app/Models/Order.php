@@ -25,15 +25,9 @@ class Order extends Model
 
     /*-- Begin Order Relation--*/
 
-    public function cart()
+    public function user()
     {
-        return $this->hasManyThrough(
-            Cart::class,
-            User::class,
-            'id',
-            'user_id',
-            'id',
-            'id');
+        return $this->belongsTo(User::class);
     }
     /*-- End Order Relation--*/
 

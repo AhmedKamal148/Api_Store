@@ -40,7 +40,7 @@ class Cart extends Model
 
 
     /*-- Begin Relations --*/
-    public function products()
+    public function product()
     {
         return $this->belongsTo(Products::class, 'product_id');
     }

@@ -3,20 +3,19 @@
 namespace App\Observers;
 
 use App\Http\Traits\ApiResponse;
+use App\Http\Traits\OrderMethods;
 use App\Models\Order;
-use App\Models\OrderItems;
 
 class OrderObserver
 {
-    use ApiResponse;
+    use ApiResponse, OrderMethods;
 
     public function created(Order $order)
     {
-        $order = $order->with('cart')->first();
-
+        $order = $order->with('user')->first();
         $this->createOrderItems($order);
-
-
+        $this->updateProductStock($order);
+        $this->delete_Order_cart($order);
     }
 
 
@@ -43,17 +42,5 @@ class OrderObserver
         //
     }
 
-    private function createOrderItems($order)
-    {
-        foreach ($order->cart as $cart) {
-            $orderItems = OrderItems::create([
-                'order_id' => $order->id,
-                'product_id' => $cart->product_id,
-                'count' => $cart->count,
-                'unit_price' => $cart->products->price,
-                'net_price' => $cart->count * $cart->products->price,
 
-            ]);
-        }
-    }
 }

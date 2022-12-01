@@ -29,4 +29,11 @@ class User extends Authenticatable
     ];
 
 
+    /*-- Begin Relation --*/
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
+    /*-- End Relation --*/
 }

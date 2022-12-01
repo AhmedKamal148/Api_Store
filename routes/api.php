@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductsController;
+use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 
@@ -46,9 +48,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     });
 
     /*-- OrderItems Routes--*/
-    /*    Route::group(['prefix' => 'orderItems'], function () {
-            Route::get('', 'index');
-        });*/
+    Route::group(['prefix' => 'orderItems'], function () {
+        Route::get('', function () {
+            $order = Order::where('user_id', 1)->first();
+            dd($order->with('cart')->first());
+            $cart = Cart::where('id', 3)->with('products')->first();
+        });
+    });
 
     /*-- Logout Route--*/
     Route::post('logout', [AuthController::class, 'logout']);
