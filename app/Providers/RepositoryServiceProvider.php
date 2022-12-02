@@ -34,6 +34,11 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Interfaces\Api\OrderInterface',
             'App\Http\Repositories\Api\OrderRepository'
         );
+        /*-- Order Items --*/
+        $this->app->bind(
+            'App\Http\Interfaces\Api\OrderItemsInterface',
+            'App\Http\Repositories\Api\OrderItemsRepository'
+        );
     }
 
 

@@ -9,40 +9,40 @@ use App\Http\Requests\Product\UpdateProductRequest;
 
 class ProductsController extends Controller
 {
-    private $ProductsInterface;
+    private $productsInterface;
 
-    public function __construct(ProductsInterface $ProductsInterface)
+    public function __construct(ProductsInterface $productsInterface)
     {
-        $this->ProductsInterface = $ProductsInterface;
+        $this->productsInterface = $productsInterface;
     }
 
     public function index()
     {
-        return $this->ProductsInterface->index();
+        return $this->productsInterface->index();
     }
 
     public function store(StoreProductRequest $request)
     {
-        return $this->ProductsInterface->store($request);
+        return $this->productsInterface->store($request);
 
     }
 
     public function show($id)
     {
-        return $this->ProductsInterface->show($id);
+        return $this->productsInterface->show($id);
 
     }
 
     public function update(UpdateProductRequest $request)
     {
-        return $this->ProductsInterface->update($request);
+        return $this->productsInterface->update($request);
 
     }
 
 
     public function delete($request)
     {
-        return $this->ProductsInterface->delete($request);
+        return $this->productsInterface->delete($request);
 
     }
 

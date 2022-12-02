@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Http\Traits\ApiResponse;
 use App\Http\Traits\OrderMethods;
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 
 class OrderObserver
 {
@@ -13,9 +14,13 @@ class OrderObserver
     public function created(Order $order)
     {
         $order = $order->with('user')->first();
-        $this->createOrderItems($order);
-        $this->updateProductStock($order);
-        $this->delete_Order_cart($order);
+        DB::transaction(function () use ($order) {
+            $this->createOrderItems($order);
+            $this->updateProductStock($order);
+            $this->delete_Order_cart($order);
+        });
+
+
     }
 
 
@@ -26,18 +31,6 @@ class OrderObserver
 
 
     public function deleted(Order $order)
-    {
-        //
-    }
-
-
-    public function restored(Order $order)
-    {
-        //
-    }
-
-
-    public function forceDeleted(Order $order)
     {
         //
     }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Traits;
 
-use App\Models\Cart;
 use App\Models\OrderItems;
 
 trait OrderMethods
@@ -10,6 +9,7 @@ trait OrderMethods
     private function createOrderItems($order)
     {
         $carts = $this->get_Order_Cart($order);
+
         foreach ($carts as $cart) {
             OrderItems::create([
                 'order_id' => $order->id,
@@ -40,6 +40,11 @@ trait OrderMethods
 
     private function delete_Order_cart($order)
     {
-        Cart::destroy($order->cart);
+        $carts = $this->get_Order_Cart($order);
+        foreach ($carts as $cart) {
+            $cart->delete();
+        }
+
+
     }
 }
