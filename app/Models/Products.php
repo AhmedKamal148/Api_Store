@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Products extends Model
+class Products extends Model implements TranslatableContract
 {
-    use HasFactory;
+    use HasFactory, Translatable;
 
-    protected $guarded = [];
+    protected $fillable = ['price', 'stock'];
+    public $translatedAttributes = ['name'];
 
     protected $casts = [
         'price' => 'double',
@@ -18,18 +21,24 @@ class Products extends Model
 
     /*-- Begin Product Rules --*/
 
-    public static function Make_Product_Rules(): array
+    public static function Create_Product_Rules(): array
     {
-        return [
-            'name' => ['required', 'string', 'min:4'],
-            'price' => 'required|integer',
-            'stock' => 'required|integer',
-        ];
+        $rules =
+            [
+                'price' => ['required', 'integer'],
+                'stock' => ['required', 'integer'],
+            ];
+
+        foreach (config('translatable.locales') as $local) {
+            $rules [$local . '.name'] = ['required', 'string', 'min:4'];
+        }
+
+        return $rules;
     }
 
     public static function Find_Product_By_ProductId(): array
     {
-        return ['product_id' => 'required', 'exists,products,id'];
+        return ['product_id' => 'required|exists:products,id'];
     }
     /*-- End Product Rules --*/
 

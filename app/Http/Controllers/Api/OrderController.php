@@ -23,6 +23,5 @@ class OrderController extends Controller
     public function checkOut(StoreOrderRequest $request)
     {
         return $this->orderInterface->checkOut($request);
-
     }
 }

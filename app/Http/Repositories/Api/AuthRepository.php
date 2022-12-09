@@ -20,10 +20,10 @@ class AuthRepository implements AuthInterface
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-    
+        $token = $user->createToken('_token')->plainTextToken;
+        $user['token'] = $token;
+
         return $this->apiResponse(200, 'Register Successfully', null, $user);
-
-
     }
 
     public function login($request)

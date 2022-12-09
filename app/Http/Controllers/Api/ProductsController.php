@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Interfaces\Api\ProductsInterface;
+use App\Http\Requests\Product\DeleteProductRequest;
+use App\Http\Requests\Product\ShowProductRequest;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 
@@ -27,9 +29,9 @@ class ProductsController extends Controller
 
     }
 
-    public function show($id)
+    public function show(ShowProductRequest $request)
     {
-        return $this->productsInterface->show($id);
+        return $this->productsInterface->show($request);
 
     }
 
@@ -40,8 +42,9 @@ class ProductsController extends Controller
     }
 
 
-    public function delete($request)
+    public function delete(DeleteProductRequest $request)
     {
+
         return $this->productsInterface->delete($request);
 
     }

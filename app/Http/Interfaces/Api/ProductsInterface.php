@@ -8,7 +8,7 @@ interface ProductsInterface
 
     public function store($request);
 
-    public function show($id);
+    public function show($request);
 
     public function update($request);
 

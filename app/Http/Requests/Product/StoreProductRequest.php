@@ -16,6 +16,6 @@ class StoreProductRequest extends FormRequest
 
     public function rules(Products $products): array
     {
-        return $products::Make_Product_Rules();
+        return $products::Create_Product_Rules();
     }
 }
