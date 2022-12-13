@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('localization')->group(function () {
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
-        /*-- Products Routes--*/
+        /*-- Products Routes --*/
         Route::group(['prefix' => 'products', 'controller' => ProductsController::class], function () {
             Route::get('/', 'index');
             Route::post('/store', 'store');
@@ -23,38 +23,38 @@ Route::middleware('localization')->group(function () {
             Route::post('/delete', 'delete');
 
         });
+        /*-- Cart Routes --*/
 
-        /*-- Cart Routes--*/
-        Route::controller(CartController::class)->group(function () {
-            Route::group(['prefix' => 'cart'], function () {
-                Route::get('/', 'index');
-                Route::post('/store', 'store');
-                Route::get('/show/{id}', 'show');
-                Route::post('/update', 'update');
-                Route::post('/delete', 'delete');
-            });
+        Route::group(['prefix' => 'cart', 'controller' => CartController::class], function () {
+            Route::get('/', 'index');
+            Route::post('/store', 'store');
+            Route::get('/show/{id}', 'show');
+            Route::post('/update', 'update');
+            Route::post('/delete', 'delete');
         });
 
-        /*-- Order Routes--*/
-        Route::controller(OrderController::class)->group(function () {
-            Route::group(['prefix' => 'orders'], function () {
-                Route::get('', 'index');
-                Route::post('/checkOut', 'checkOut');
-            });
+        /*-- Order Routes --*/
+        Route::group(['prefix' => 'orders', 'controller' => OrderController::class], function () {
+            Route::get('', 'index');
+            Route::post('/checkOut', 'checkOut');
         });
 
-        /*-- OrderItems Routes--*/
-        Route::controller(OrderItemsController::class)->group(function () {
-            Route::group(['prefix' => 'orderItems'], function () {
-                Route::get('', 'index');
-            });
+
+        /*-- OrderItems Routes --*/
+
+        Route::group(['prefix' => 'orderItems', 'controller' => OrderItemsController::class], function () {
+            Route::get('', 'index');
         });
 
-        /*-- Logout Route--*/
+        /*-- Logout Route --*/
         Route::post('logout', [AuthController::class, 'logout']);
 
     });
 
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('login', [AuthController::class, 'login'])->name('login');
+    /*-- Auth Routes --*/
+    Route::group(['controller' => AuthController::class], function () {
+        Route::post('register', 'register');
+        Route::post('login', 'login')->name('login');
+    });
+
 });

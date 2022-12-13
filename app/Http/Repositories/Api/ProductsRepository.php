@@ -3,13 +3,9 @@
 namespace App\Http\Repositories\Api;
 
 use App\Http\Interfaces\Api\ProductsInterface;
-use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Http\Traits\ApiResponse;
 use App\Models\Products;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Http\Response;
 
 class ProductsRepository implements ProductsInterface
 {
@@ -34,11 +30,7 @@ class ProductsRepository implements ProductsInterface
 
     }
 
-    /**
-     * @param StoreProductRequest $request
-     * @return Application|ResponseFactory|Response
-     *
-     */
+
     public function store($request)
     {
         $product = $this->product_Model->create($request->validated());
@@ -58,10 +50,9 @@ class ProductsRepository implements ProductsInterface
     public function update($request)
     {
         $product = $this->product_Model::find($request->product_id);
-
         if ($product) {
-            $product->update($request->all());
-            return $this->apiResponse(200, 'Updated Product Successfully ', null, new ProductResource($product));
+            $product->update($request->validated());
+            return $this->apiResponse(200, 'Updated Product Successfully', null, new ProductResource($product));
         }
         return $this->apiResponse(404, 'This Product Doesn\'t Exist');
 

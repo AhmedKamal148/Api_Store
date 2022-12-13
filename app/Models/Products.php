@@ -21,7 +21,7 @@ class Products extends Model implements TranslatableContract
 
     /*-- Begin Product Rules --*/
 
-    public static function Create_Product_Rules(): array
+    public static function Common_Product_Rules(): array
     {
         $rules =
             [
@@ -36,7 +36,7 @@ class Products extends Model implements TranslatableContract
         return $rules;
     }
 
-    public static function Find_Product_By_ProductId(): array
+    public static function ProductId_Rule(): array
     {
         return ['product_id' => 'required|exists:products,id'];
     }

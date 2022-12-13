@@ -16,6 +16,6 @@ class DeleteProductRequest extends FormRequest
 
     public function rules(Products $products): array
     {
-        return $products::Find_Product_By_ProductId();
+        return $products::ProductId_Rule();
     }
 }

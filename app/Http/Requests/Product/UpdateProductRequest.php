@@ -16,7 +16,7 @@ class UpdateProductRequest extends FormRequest
     public function rules(Products $products): array
     {
         return array_merge(
-            $products::Create_Product_Rules(),
-            $products::Find_Product_By_ProductId());
+            $products::Common_Product_Rules(),
+            $products::ProductId_Rule());
     }
 }
