@@ -41,72 +41,71 @@ class ProductTest extends TestCase
     }
 
 // Begin Validation Tests
-    public function test_arabic_product_name_is_required()
-    {
-        $data = [
+    // public function test_arabic_product_name_is_required()
+    // {
+    //     $data = [
+    //         'en' => ['name' => 'ahmed'],
+    //         'price' => 111,
+    //         'stock' => 100
+    //     ];
 
-            'en' => ['name' => 'ahmed'],
-            'price' => 111,
-            'stock' => 100
-        ];
+    //     $response = $this->post('api/products/store', $data);
+    //     $response->assertSessionHasErrors();
 
-        $response = $this->post('api/products/store', $data);
-        $response->assertSessionHasErrors();
+    // }
 
-    }
+    // public function test_english_product_name_is_required()
+    // {
+    //     $data = [
 
-    public function test_english_product_name_is_required()
-    {
-        $data = [
+    //         'ar' => ['name' => 'احمد'],
+    //         'price' => 111,
+    //         'stock' => 100
+    //     ];
 
-            'ar' => ['name' => 'احمد'],
-            'price' => 111,
-            'stock' => 100
-        ];
+    //     $response = $this->post('api/products/store', $data);
+    //     $response->assertSessionHasErrors();
 
-        $response = $this->post('api/products/store', $data);
-        $response->assertSessionHasErrors();
+    // }
 
-    }
+    // public function test_product_price_is_integer()
+    // {
+    //     $data = [
 
-    public function test_product_price_is_integer()
-    {
-        $data = [
+    //         'ar' => ['name' => 'احمد'],
+    //         'en' => ['name' => 'ahmed'],
+    //         'price' => 11.1,
+    //         'stock' => 100
+    //     ];
 
-            'ar' => ['name' => 'احمد'],
-            'en' => ['name' => 'ahmed'],
-            'price' => 11.1,
-            'stock' => 100
-        ];
+    //     $response = $this->post('api/products/store', $data);
+    //     $response->assertSessionHasErrors();
 
-        $response = $this->post('api/products/store', $data);
-        $response->assertSessionHasErrors();
+    // }
 
-    }
-
-    /*
+    /**
      * @dataProvider data
      */
-    /*   public function test_validataionData($data)
-       {
+    public function test_validataionData($data)
+    {
 
-           $response = $this->post('api/products/store', $data);
-           $response->assertSessionHasErrors();
-       }
+        $response = $this->post('api/products/store', $data);
+        $response->assertSessionHasErrors();
+    }
 
-       public function data()
-       {
-           return [
-               [
-                   [
-                       'ar' => ['name' => 'احمد'],
-                       'en' => ['name' => 'ahmed'],
-                       'price' => 11.1,
-                       'stock' => 100
-                   ]
-               ]
-           ];
-       }*/
+    public function data()
+    {
+        return [
+            [
+                [
+                    'ar' => ['name' => 'احمد'],
+                    'en' => ['name' => 'ahmed'],
+                    'price' => 11.1,
+                    'stock' => 100
+                ]
+            ]
+        ];
+    }
 
 // End Validation Tests
 
@@ -120,9 +119,7 @@ class ProductTest extends TestCase
         $response = $this->post('api/products/show', $data);
         $response->assertJson([
             'status' => 200,
-            'message' => "Product Found"
         ]);
-
     }
 
 
@@ -142,7 +139,6 @@ class ProductTest extends TestCase
 
         $response->assertJson([
             'status' => 200,
-            'message' => "Updated Product Successfully"
         ]);
     }
 
@@ -151,12 +147,11 @@ class ProductTest extends TestCase
     {
         $product_id = Products::latest()->first()->id;
 
-
-        $response = $this->post('api/products/delete');
+        $response = $this->post('api/products/delete',[
+            'product_id' => $product_id
+        ]);
 
         $this->assertDeleted('products', ['id' => $product_id]);
-
-
     }
 
 
