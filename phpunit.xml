@@ -5,11 +5,11 @@
          colors="true"
 >
     <testsuites>
-        <!-- <testsuite name="Unit">
+        <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
-        </testsuite> -->
+        </testsuite>
         <testsuite name="Controller">
-            <directory suffix="Test.php">./tests/controller</directory>
+            <directory suffix="Test.php">./tests/Feature/controller</directory>
         </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">

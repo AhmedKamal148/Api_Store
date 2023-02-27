@@ -19,7 +19,7 @@ class CreateOrderItemsTable extends Migration
             $table->foreignId('product_id');
             $table->smallInteger('count');
             $table->double('unit_price');
-            $table->double('total_price');
+            $table->double('net_price');
             $table->timestamps();
         });
     }

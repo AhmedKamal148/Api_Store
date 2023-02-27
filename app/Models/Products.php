@@ -12,7 +12,8 @@ class Products extends Model implements TranslatableContract
     use HasFactory, Translatable;
 
     protected $fillable = ['price', 'stock'];
-    public $translatedAttributes = ['name'];
+
+    public $translatable = ['name'];
 
     protected $casts = [
         'price' => 'double',

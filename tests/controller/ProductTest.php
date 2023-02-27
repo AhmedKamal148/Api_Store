@@ -139,6 +139,7 @@ class ProductTest extends TestCase
 
         $response->assertJson([
             'status' => 200,
+            'message' => "Updated Product Successfully"
         ]);
     }
 
